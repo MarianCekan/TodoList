@@ -1,0 +1,43 @@
+
+
+@mixin center($height){
+  height: $height;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.background {
+  @include center(100vh);
+  background-color: #3F51B5;
+}
+
+.mat-form-field {
+  min-width: 300px;
+  margin: 10px;
+}
+
+.centerFlex{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.small-text{
+  text-align: right;
+}
+
+mat-card-title,
+mat-card-content {
+  @include center(auto);
+}
+
+button{
+  display: block;
+  margin: auto;
+}
+
+mat-icon {
+  float: left;
+  opacity: 0.5;
+  margin-top: 14px;
+}
