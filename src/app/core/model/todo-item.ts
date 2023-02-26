@@ -6,5 +6,5 @@ export interface TodoItem {
   content: string,
   deadline: any;
   active: boolean;
-  todoListId: string;
+  TodoListId: string;
 }

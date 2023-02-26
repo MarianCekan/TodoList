@@ -19,22 +19,30 @@ mat-card-actions {
 
 .actionButton {
   min-width: fit-content;
-  opacity: 50% ;
+  opacity: 50%;
 }
 
 .actionButton:hover {
-  opacity: 100% ;
+  opacity: 100%;
 }
 
 table {
   width: 100%;
 }
 
-.inactive{
+.inactive {
   color: gray;
 }
 
-.mat-row:nth-child(even){
+.mat-row:nth-child(even) {
   /*TODO: spravit to ako konstantu v const.ts*/
   background-color: rgba(245, 245, 245, 0.80);
+}
+
+.contentFlexJustify {
+  display: flex;
+}
+
+.demo-button{
+  margin: 1%;
 }

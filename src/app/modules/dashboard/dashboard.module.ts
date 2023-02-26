@@ -4,7 +4,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {MaterialModule} from "../../core/modules/material/material.module";
 import { CommentComponent } from './components/comment/comment.component';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -19,7 +19,8 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     DashboardRoutingModule,
     MaterialModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
 })
 export class DashboardModule { }

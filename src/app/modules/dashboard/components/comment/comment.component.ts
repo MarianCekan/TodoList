@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TodoItem} from "../../../../core/model/todo-item";
+import {DataSourceService} from "../../services/data-source.service";
 
 @Component({
   selector: 'app-comment',
@@ -9,18 +10,17 @@ import {TodoItem} from "../../../../core/model/todo-item";
 export class CommentComponent implements OnInit {
   @Input() todoItem!: TodoItem;
 
-  constructor() {
+  constructor(private dataSource: DataSourceService) {
 
   }
 
   ngOnInit(): void {
   }
 
-  onUpdate(todoItem: TodoItem) {
-    alert(todoItem.title + ' - '+todoItem.id)
+  onDelete(todoItem: TodoItem) {
+    this.dataSource.deleteItem(todoItem);
   }
 
-  onDelete() {
-
+  onDone(todoItem: TodoItem) {
   }
 }
