@@ -10,6 +10,7 @@ import { environment } from '../environments/environment';
 import {DashboardModule} from "./modules/dashboard/dashboard.module";
 import {NotFoundPageComponent } from './core/components/not-found-page/not-found-page.component';
 import {AngularFireModule} from "@angular/fire/compat";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {AngularFireModule} from "@angular/fire/compat";
     MaterialModule,
     AuthModule,
     DashboardModule,
-    AngularFireModule.initializeApp(environment.firebase)
+    AngularFireModule.initializeApp(environment.firebase),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],

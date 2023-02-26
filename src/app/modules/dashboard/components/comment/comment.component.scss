@@ -26,15 +26,3 @@ mat-card-actions {
   opacity: 100% ;
 }
 
-table {
-  width: 100%;
-}
-
-.inactive{
-  color: gray;
-}
-
-.mat-row:nth-child(even){
-  /*TODO: spravit to ako konstantu v const.ts*/
-  background-color: rgba(245, 245, 245, 0.80);
-}
