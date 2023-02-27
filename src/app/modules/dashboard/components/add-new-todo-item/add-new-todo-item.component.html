@@ -1,0 +1,33 @@
+  <form [formGroup]="myForm" (submit)="onSubmit(myForm)">
+    <div class="contentFlexJustify">
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Title</mat-label>
+          <input type="text"
+                 matInput
+                 formControlName="title">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Content</mat-label>
+          <input type="text"
+                 matInput
+                 formControlName="content">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Dátum prijatia</mat-label>
+          <div class="contentFlexJustify">
+            <input formControlName="deadline" matInput [matDatepicker]="picker1">
+            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </div>
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-raised-button color="primary" type="submit"> Odoslať</button>
+      </div>
+    </div>
+  </form>

@@ -41,8 +41,14 @@ table {
 
 .contentFlexJustify {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .demo-button{
   margin: 1%;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
 }

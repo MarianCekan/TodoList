@@ -35,7 +35,7 @@ import {MatNativeDateModule} from "@angular/material/core";
     MatCardModule,
     MatIconModule,
     MatSortModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   exports: [
     MatFormFieldModule,
@@ -59,7 +59,8 @@ import {MatNativeDateModule} from "@angular/material/core";
     MatAutocompleteModule,
     MatProgressSpinnerModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatDialogModule
 
   ]
 })

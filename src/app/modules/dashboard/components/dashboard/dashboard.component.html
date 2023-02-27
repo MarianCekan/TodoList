@@ -1,63 +1,41 @@
+<mat-toolbar>
+  <span>Todo List app</span>
+  <span class="example-spacer"></span>
+  <button mat-icon-button class="example-icon" (click)="logout()">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>
 <div>
-  <button mat-raised-button color="warn" (click)="logout()">Log out</button>
-</div>
 
-<div>
-  <form [formGroup]="myForm" (submit)="onSubmit(myForm)">
-    <div style="display:inline-flex;align-items: center">
-      <div>
-        <mat-form-field appearance="outline">
-          <mat-label>Title</mat-label>
-          <input type="text"
-                 matInput
-                 formControlName="title">
-        </mat-form-field>
-      </div>
-      <div>
-        <mat-form-field appearance="outline">
-          <mat-label>Content</mat-label>
-          <input type="text"
-                 matInput
-                 formControlName="content">
-        </mat-form-field>
-      </div>
-      <div>
-        <mat-form-field appearance="outline">
-          <mat-label>Dátum prijatia</mat-label>
-          <div class="contentFlexJustify">
-            <input formControlName="deadline" matInput [matDatepicker]="picker1">
-            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
-            <mat-datepicker #picker1></mat-datepicker>
-          </div>
-        </mat-form-field>
-      </div>
-      <div>
-        <button mat-raised-button color="primary" type="submit"> Odoslať</button>
-      </div>
+  <div class="contentFlexJustify">
+    <div id="1" class="demo-button">
+      <mat-form-field appearance="outline">
+        <mat-label>Hľadať</mat-label>
+        <input type="text"
+               matInput
+               #searchInput
+               (keyup)="applySearch(searchInput.value)">
+      </mat-form-field>
     </div>
-  </form>
 
-  <div class="demo-button">
-    <mat-form-field appearance="outline">
-      <mat-label>Hľadať</mat-label>
-      <input type="text"
-             matInput
-             #searchInput
-             (keyup)="applySearch(searchInput.value)">
-    </mat-form-field>
-  </div>
-  <div>
-    <button mat-raised-button class="demo-button" (click)="displayAllItems()">
-      Všetky
-    </button>
-    <button mat-raised-button class="demo-button" (click)="displayActiveItems()">
-      Aktívne
-    </button>
-    <button mat-raised-button class="demo-button" (click)="displayInactiveItems()">
-      Dokončené
-    </button>
-  </div>
+    <div id="3" style="display: flex; align-items: center;margin: 1%">
+      <button mat-raised-button class="demo-button" (click)="displayAllItems()">
+        Všetky
+      </button>
+      <button mat-raised-button class="demo-button" (click)="displayActiveItems()">
+        Aktívne
+      </button>
+      <button mat-raised-button class="demo-button" (click)="displayInactiveItems()">
+        Dokončené
+      </button>
+    </div>
 
+    <div id="2" class="demo-button">
+      <button mat-icon-button class="" (click)="createNew()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </div>
   <div class="grid-container">
     <table mat-table [dataSource]="items$" matSort class="mat-elevation-z8">
 

@@ -19,7 +19,7 @@ export class DataSourceService {
   addTodo(todoItem: TodoItem) {
     this.firestoreCollection.add({
       title: todoItem.title,
-      active: false,
+      active: true,
       deadline: todoItem.deadline,
       content: todoItem.content
     })
