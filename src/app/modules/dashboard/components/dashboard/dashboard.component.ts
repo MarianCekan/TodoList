@@ -1,16 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {MatTableDataSource} from '@angular/material/table';
-import {Observable, BehaviorSubject} from 'rxjs';
+import {Observable, BehaviorSubject, Subscription} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {AuthService} from '../../../auth/services/auth.service';
 import {TodoItem} from '../../../../core/model/todo-item';
 import {TodoList} from '../../../../core/model/todo-list';
 import {DataSourceService} from '../../services/data-source.service';
-import {stat} from "fs";
 import {MatDialog} from "@angular/material/dialog";
-import {CommentComponent} from "../comment/comment.component";
 import {AddNewTodoItemComponent} from "../add-new-todo-item/add-new-todo-item.component";
+import {environment, state} from "../../../../../environments/environment";
+import {ToolbarComponent} from "../toolbar/toolbar.component";
 
 @Component({
   selector: 'app-dashboard',
@@ -21,28 +21,21 @@ import {AddNewTodoItemComponent} from "../add-new-todo-item/add-new-todo-item.co
 export class DashboardComponent implements OnInit {
   displayedColumns;
   items$!: Observable<TodoItem[]>;
-  myForm: FormGroup;
+  private itemsSubscription!: Subscription;
 
-  constructor(
-    private authService: AuthService,
-    private dataSource: DataSourceService,
-    private fb: FormBuilder,
-    private dialogRef: MatDialog,
-  ) {
-    this.myForm = fb.group({
-      content: ['', []],
-      title: ['', []],
-      isDone: [false, []],
-      deadline: [new Date, []],
-    });
 
+  constructor(private authService: AuthService, private dataSource: DataSourceService, private fb: FormBuilder, private dialogRef: MatDialog,) {
     this.displayedColumns = ['Title', 'Content', 'Active', 'Deadline', 'Edit', 'Delete'];
-    dataSource.getAllTodos().subscribe(() => {
+    this.itemsSubscription = dataSource.getAllTodos().subscribe(() => {
       this.filterItems(state.ALL, '');
     });
   }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy(){
+    this.itemsSubscription.unsubscribe();
   }
 
   logout() {
@@ -94,6 +87,7 @@ export class DashboardComponent implements OnInit {
   }
 
   applySearch(title: string) {
+    // making request each time
     // this.items$ = this.dataSource.getAllTodosByTitle(title);
     this.filterItems(state.SEARCH, title);
   }
@@ -102,16 +96,5 @@ export class DashboardComponent implements OnInit {
     let dialogRef = this.dialogRef.open(AddNewTodoItemComponent);
     let instance = dialogRef.componentInstance;
     instance.dialogRef = this.dialogRef;
-    // this.dialogRef.open(AddNewTodoItemComponent(this.dialogRef));
-    // this.dialogRef.closeAll();
-
   }
-}
-
-
-enum state {
-  FALSE,
-  TRUE,
-  SEARCH,
-  ALL,
 }

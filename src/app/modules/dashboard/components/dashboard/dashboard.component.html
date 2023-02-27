@@ -1,66 +1,57 @@
-<mat-toolbar>
-  <span>Todo List app</span>
-  <span class="example-spacer"></span>
-  <button mat-icon-button class="example-icon" (click)="logout()">
-    <mat-icon>logout</mat-icon>
-  </button>
-</mat-toolbar>
-<div>
-
+<app-toolbar></app-toolbar>
+<div class="grid-container">
   <div class="contentFlexJustify">
-    <div id="1" class="demo-button">
+    <div>
       <mat-form-field appearance="outline">
         <mat-label>Hľadať</mat-label>
         <input type="text"
                matInput
                #searchInput
+               placeholder="Zadajte názov titulku"
                (keyup)="applySearch(searchInput.value)">
       </mat-form-field>
     </div>
 
-    <div id="3" style="display: flex; align-items: center;margin: 1%">
-      <button mat-raised-button class="demo-button" (click)="displayAllItems()">
-        Všetky
-      </button>
-      <button mat-raised-button class="demo-button" (click)="displayActiveItems()">
-        Aktívne
-      </button>
-      <button mat-raised-button class="demo-button" (click)="displayInactiveItems()">
-        Dokončené
-      </button>
+    <div>
+      <mat-button-toggle-group name="activeSelection" aria-label="Active status" value="all">
+        <mat-button-toggle value='all' (click)="displayAllItems()">Všetky</mat-button-toggle>
+        <mat-button-toggle value='active' (click)="displayActiveItems()">Aktívne</mat-button-toggle>
+        <mat-button-toggle value='done'(click)="displayInactiveItems()">Dokončené</mat-button-toggle>
+      </mat-button-toggle-group>
     </div>
 
-    <div id="2" class="demo-button">
-      <button mat-icon-button class="" (click)="createNew()">
+    <div>
+      <button mat-icon-button (click)="createNew()">
         <mat-icon>add</mat-icon>
       </button>
     </div>
   </div>
-  <div class="grid-container">
+
+  <div>
     <table mat-table [dataSource]="items$" matSort class="mat-elevation-z8">
 
-      <!-- Name Column -->
+      <!-- Title Column -->
       <ng-container matColumnDef="Title">
-        <th mat-header-cell *matHeaderCellDef> Title</th>
+        <th mat-header-cell *matHeaderCellDef> Titulok</th>
         <td mat-cell *matCellDef="let element" [ngClass]="{'inactive': !element.active}"> {{element.title}} </td>
       </ng-container>
 
-      <!-- Weight Column -->
+      <!-- Content Column -->
       <ng-container matColumnDef="Content">
-        <th mat-header-cell *matHeaderCellDef> Content</th>
+        <th mat-header-cell *matHeaderCellDef> Obsah</th>
         <td mat-cell *matCellDef="let element" [ngClass]="{'inactive': !element.active}"> {{element.content}} </td>
       </ng-container>
 
-      <!-- Symbol Column -->
+      <!-- Deadline Column -->
       <ng-container matColumnDef="Deadline">
         <th mat-header-cell *matHeaderCellDef> Deadline</th>
         <td mat-cell *matCellDef="let element"
             [ngClass]="{'inactive': !element.active}"> {{element.deadline.toDate() | date:'dd.MM.YYYY HH:mm'}} </td>
       </ng-container>
 
-      <!-- Symbol Column -->
+      <!-- Active Column -->
       <ng-container matColumnDef="Active">
-        <th mat-header-cell *matHeaderCellDef> Active</th>
+        <th mat-header-cell *matHeaderCellDef> Aktívne</th>
         <td mat-cell *matCellDef="let element" [ngClass]="{'inactive': !element.active}"> {{element.active}} </td>
       </ng-container>
 
@@ -69,8 +60,6 @@
         <td mat-cell *matCellDef="let row" [ngClass]="{'inactive': !row.active}">
           <mat-icon class="small-icon">{{ row.active ? "done" : "close"}}</mat-icon>
           <button mat-button (click)="markDone(row)">{{ row.active ? "Splnené" : "Nesplnené"}}</button>
-          <!--          <button mat-icon-button>-->
-          <!--          </button>-->
         </td>
       </ng-container>
 
@@ -88,5 +77,4 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
   </div>
-
 </div>

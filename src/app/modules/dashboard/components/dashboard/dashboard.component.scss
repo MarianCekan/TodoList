@@ -1,29 +1,12 @@
+$inactive_text_color: gray;
+$even_row_color: rgba(245, 245, 245, 0.80);
+
 .grid-container {
-  padding: 1%;
+  margin: 1%;
 }
 
 .small-icon {
   font-size: smaller;
-}
-
-.small-text {
-  font-size: small;
-  width: 100%;
-}
-
-mat-card-actions {
-  display: flex;
-  align-items: flex-end;
-  margin-top: -0.5%
-}
-
-.actionButton {
-  min-width: fit-content;
-  opacity: 50%;
-}
-
-.actionButton:hover {
-  opacity: 100%;
 }
 
 table {
@@ -31,12 +14,7 @@ table {
 }
 
 .inactive {
-  color: gray;
-}
-
-.mat-row:nth-child(even) {
-  /*TODO: spravit to ako konstantu v const.ts*/
-  background-color: rgba(245, 245, 245, 0.80);
+  color: $inactive_text_color;
 }
 
 .contentFlexJustify {
@@ -45,10 +23,6 @@ table {
   align-items: center;
 }
 
-.demo-button{
-  margin: 1%;
-}
-
-.example-spacer {
-  flex: 1 1 auto;
+.mat-row:nth-child(even) {
+  background-color: $even_row_color;
 }

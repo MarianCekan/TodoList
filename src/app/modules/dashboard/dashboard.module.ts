@@ -6,6 +6,7 @@ import {MaterialModule} from "../../core/modules/material/material.module";
 import { CommentComponent } from './components/comment/comment.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AddNewTodoItemComponent } from './components/add-new-todo-item/add-new-todo-item.component';
+import {ToolbarComponent} from "./components/toolbar/toolbar.component";
 
 
 @NgModule({
@@ -13,9 +14,11 @@ import { AddNewTodoItemComponent } from './components/add-new-todo-item/add-new-
     DashboardComponent,
     CommentComponent,
     AddNewTodoItemComponent,
+    ToolbarComponent,
   ],
   exports: [
-    DashboardComponent
+    DashboardComponent,
+    ToolbarComponent
   ],
   imports: [
     CommonModule,

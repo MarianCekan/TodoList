@@ -15,7 +15,7 @@ import {HttpClientModule} from "@angular/common/http";
 @NgModule({
   declarations: [
     AppComponent,
-    NotFoundPageComponent
+    NotFoundPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,7 +30,7 @@ import {HttpClientModule} from "@angular/common/http";
   providers: [],
   bootstrap: [AppComponent],
   exports: [
-    MaterialModule
+    MaterialModule,
   ]
 })
 export class AppModule { }
