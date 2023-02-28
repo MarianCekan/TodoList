@@ -4,6 +4,7 @@ import {TodoItem} from "../../../core/model/todo-item";
 import {TodoList} from "../../../core/model/todo-list";
 import {map, Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import {arrayRemove, arrayUnion} from "@angular/fire/firestore";
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,15 @@ export class DataSourceService {
     this.firestoreCollection = afs.collection('todos')
   }
 
+  addTodoList(todoList: TodoList) {
+    let id = this.afs.createId();
+    this.afs.collection('ItemList').doc(id).set({
+      Name: todoList.Name,
+      Items: arrayUnion(),
+      ItemListId: id
+    })
+  }
+
   addTodo(todoItem: TodoItem) {
     this.firestoreCollection.add({
       title: todoItem.title,
@@ -25,7 +35,29 @@ export class DataSourceService {
     })
   }
 
-  getAllTodos(): Observable<TodoItem[]>{
+  updateTodo(todoItem: TodoItem) {
+    this.deleteTodo(todoItem);
+    todoItem.active = !todoItem.active
+    this.afs.collection('ItemList').doc(todoItem.TodoListId).update({
+      Items: arrayUnion(todoItem)
+    })
+  }
+
+  addTodoItem(todoItem: TodoItem) {
+    this.afs.collection('ItemList').doc(todoItem.TodoListId).update({
+      Items: arrayUnion(todoItem)
+    })
+  }
+
+  deleteTodo(todoItem: TodoItem) {
+    this.afs.collection('ItemList').doc(todoItem.TodoListId).update({
+      Items: arrayRemove(todoItem)
+    })
+  }
+  deleteTodoList(TodoList: TodoList) {
+    this.afs.collection('ItemList').doc(TodoList.ItemListId).delete()
+  }
+  getAllTodos(): Observable<TodoItem[]> {
     return this.afs.collection('/todos').snapshotChanges()
       .pipe(
         map(actions => actions.map(action => {
@@ -36,8 +68,8 @@ export class DataSourceService {
       );
   }
 
-  getAllTodosByTitle(title: string): Observable<TodoItem[]>{
-    return this.afs.collection('/todos',ref=>ref.where("title","==",title)).snapshotChanges()
+  getAllTodosByTitle(title: string): Observable<TodoItem[]> {
+    return this.afs.collection('/todos', ref => ref.where("title", "==", title)).snapshotChanges()
       .pipe(
         map(actions => actions.map(action => {
           const data = action.payload.doc.data() as TodoItem;
@@ -52,73 +84,6 @@ export class DataSourceService {
     return this.afs.doc('/todos/' + item.id).delete();
   }
 
-  markActive(item: TodoItem){
-    this.afs.collection('/todos').doc(item.id).update({active: !item.active})
-  }
-
-  getTodoListsMockapi(): Observable<TodoList[]> {
-    return this.http.get<TodoList[]>('https://63fb25602027a45d8d60ca40.mockapi.io/TodoList')
-  }
-
-  // // add item do DB
-  // addItem(item: TodoItem) {
-  //   this.afs.createId();
-  //   return this.afs.collection('/Item').add(item);
-  // }
-
-  // // add item do DB
-  addItem(item: TodoItem) {
-    fetch('https://63fb25602027a45d8d60ca40.mockapi.io/TodoList/' + item.TodoListId + '/TodoItem', {
-      method: 'POST',
-      headers: {'content-type': 'application/json'},
-      // Send your data in the request body as JSON
-      body: JSON.stringify(item)
-      //@ts-ignore
-    }).then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      // handle error
-    }).then(task => {
-      // do something with the new task
-    }).catch(error => {
-      // handle error
-    })
-  }
-
-  // get all items from DB
-  getAllItems(): Observable<TodoItem[]> {
-    return this.afs.collection('/Item').snapshotChanges()
-      .pipe(
-        map(actions => actions.map(action => {
-          const data = action.payload.doc.data() as TodoItem;
-          const itemId = action.payload.doc.id;
-          return {itemId, ...data};
-        }))
-      );
-  }
-
-  // get all items from DB
-  getItemByListId(id: string): Observable<TodoItem> {
-    return this.http.get<TodoItem>('https://63fb25602027a45d8d60ca40.mockapi.io/TodoItem/' + id)
-
-  }
-
-
-  // update item from DB TODO: implement it so it will actually update not delete and insert
-  updateItem(item: TodoItem) {
-    this.deleteItem(item).then(() => {
-        this.addItem(item);
-      }
-    );
-  }
-
-  // add item do DB
-  addItemList(itemList: TodoList) {
-    this.afs.createId();
-    return this.afs.collection('/ItemList').add(itemList);
-  }
-
   // get all items from DB
   getAllItemsLists(): Observable<TodoList[]> {
     return this.afs.collection('/ItemList').snapshotChanges()
@@ -129,19 +94,5 @@ export class DataSourceService {
           return data;
         }))
       );
-  }
-
-  // delete item from DB
-  deleteItemList(itemList: TodoList) {
-    this.afs.createId();
-    return this.afs.doc('/ItemList/' + itemList.id).delete();
-  }
-
-  // update item from DB TODO: implement it so it will actually update not delete and insert
-  updateItemList(itemList: TodoList) {
-    this.deleteItemList(itemList).then(() => {
-        this.addItemList(itemList);
-      }
-    );
   }
 }

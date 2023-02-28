@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../../auth/services/auth.service";
 import {DataSourceService} from "../../services/data-source.service";
 import {MatDialog} from "@angular/material/dialog";
@@ -11,6 +11,7 @@ import {MatDialog} from "@angular/material/dialog";
 })
 export class AddNewTodoItemComponent implements OnInit {
   @Input() dialogRef: MatDialog | undefined;
+  @Input() TodoListId: string = '';
   myForm: FormGroup;
 
   constructor(
@@ -20,18 +21,35 @@ export class AddNewTodoItemComponent implements OnInit {
   ) {
     this.myForm = fb.group({
       content: ['', []],
-      title: ['', []],
-      isDone: [true, []],
-      deadline: [new Date, []],
+      title: ['', [Validators.required]],
+      active: [true, []],
+      deadline: [new Date, [futureDateValidator]],
+      TodoListId: ['', []]
     });
   }
 
   ngOnInit(): void {
+    // Pretoze v konstruktor sa vykonna skor
+    this.myForm.controls['TodoListId'].setValue(this.TodoListId);
   }
 
   onSubmit(myForm: FormGroup) {
-    this.dataSource.addTodo(myForm.value);
-    myForm.reset();
-    this.dialogRef?.closeAll();
+    if (myForm.valid) {
+      this.dataSource.addTodoItem(myForm.value);
+      myForm.reset();
+      this.dialogRef?.closeAll();
+    }
   }
+
+}
+
+function futureDateValidator(control: AbstractControl): { [key: string]: any } | null {
+  const deadlineDate = new Date(control.value);
+  const now = new Date();
+
+  if (deadlineDate.getTime() <= now.getTime()) {
+    return {'futureDate': true};
+  }
+
+  return null;
 }

@@ -1,7 +1,7 @@
 import {TodoItem} from "./todo-item";
 
 export interface TodoList {
-  id: string,
-  name: string,
-  items: TodoItem[]
+  ItemListId: string,
+  Name: string,
+  Items: TodoItem[]
 }

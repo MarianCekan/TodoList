@@ -1,0 +1,18 @@
+<div>
+  <form [formGroup]="myForm" (submit)="onSubmit(myForm)">
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Názov TodoListu</mat-label>
+        <input type="text"
+               matInput
+               formControlName="Name">
+        <mat-error>
+          Toto pole je povinné
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="contentFlexJustifyCenter">
+      <button mat-raised-button color="primary" type="submit"> Vytvoriť</button>
+    </div>
+  </form>
+</div>

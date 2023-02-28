@@ -7,6 +7,8 @@ import { CommentComponent } from './components/comment/comment.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AddNewTodoItemComponent } from './components/add-new-todo-item/add-new-todo-item.component';
 import {ToolbarComponent} from "./components/toolbar/toolbar.component";
+import { AddNewTodoListComponent } from './components/add-new-todo-list/add-new-todo-list.component';
+import {MatDatetimepickerModule} from "@mat-datetimepicker/core";
 
 
 @NgModule({
@@ -15,17 +17,19 @@ import {ToolbarComponent} from "./components/toolbar/toolbar.component";
     CommentComponent,
     AddNewTodoItemComponent,
     ToolbarComponent,
+    AddNewTodoListComponent,
   ],
   exports: [
     DashboardComponent,
     ToolbarComponent
   ],
-  imports: [
-    CommonModule,
-    DashboardRoutingModule,
-    MaterialModule,
-    FormsModule,
-    ReactiveFormsModule
-  ],
+    imports: [
+        CommonModule,
+        DashboardRoutingModule,
+        MaterialModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatDatetimepickerModule
+    ],
 })
 export class DashboardModule { }

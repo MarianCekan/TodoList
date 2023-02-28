@@ -23,7 +23,9 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
-
+import {CalendarModule} from 'primeng/calendar';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
 
 
 @NgModule({
@@ -62,8 +64,11 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
     MatDatepickerModule,
     MatNativeDateModule,
     MatDialogModule,
-    MatButtonToggleModule
-
+    MatButtonToggleModule,
+    MatDatepickerModule,
+    CalendarModule,
+    MessagesModule,
+    MessageModule,
   ]
 })
 export class MaterialModule { }

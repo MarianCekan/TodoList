@@ -26,12 +26,6 @@
                       (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
           </mat-form-field>
         </p>
-        <p *ngIf="errorMessage" style="text-align:center">
-          <mat-error>
-            {{errorMessage}}
-          </mat-error>
-        </p>
-        <!--      <p>{{isLoggedIn}}</p>-->
         <p>
 
           <button mat-raised-button color="primary" type="submit">Prihlásiť sa</button>

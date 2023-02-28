@@ -1,0 +1,17 @@
+@mixin contentFlexCenterItems($justify){
+  display: flex;
+  align-items: center;
+  justify-content: $justify;
+}
+
+.contentFlex{
+  @include contentFlexCenterItems(none);
+}
+
+.contentFlexJustifyBetween {
+  @include contentFlexCenterItems(space-between);
+}
+
+.contentFlexJustifyCenter{
+  @include contentFlexCenterItems(center);
+}

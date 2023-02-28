@@ -1,33 +1,45 @@
+<div>
   <form [formGroup]="myForm" (submit)="onSubmit(myForm)">
-    <div class="contentFlexJustify">
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Title</mat-label>
+        <input type="text"
+               matInput
+               formControlName="title">
+        <mat-error>
+          Toto pole je povinné
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Content</mat-label>
+        <input type="text"
+               matInput
+               formControlName="content">
+      </mat-form-field>
+    </div>
+    <div>
       <div>
-        <mat-form-field appearance="outline">
-          <mat-label>Title</mat-label>
-          <input type="text"
-                 matInput
-                 formControlName="title">
-        </mat-form-field>
+        <p-calendar appendTo="body" formControlName="deadline" [showTime]=true hourFormat="24"></p-calendar>
+        <div class="mat-error2" *ngIf="myForm.controls['deadline'].errors?.['futureDate'] && myForm.controls['deadline'].dirty">
+          Musí byť v budúcnosti
+        </div>
       </div>
-      <div>
-        <mat-form-field appearance="outline">
-          <mat-label>Content</mat-label>
-          <input type="text"
-                 matInput
-                 formControlName="content">
-        </mat-form-field>
-      </div>
-      <div>
-        <mat-form-field appearance="outline">
-          <mat-label>Dátum prijatia</mat-label>
-          <div class="contentFlexJustify">
-            <input formControlName="deadline" matInput [matDatepicker]="picker1">
-            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
-            <mat-datepicker #picker1></mat-datepicker>
-          </div>
-        </mat-form-field>
-      </div>
-      <div>
-        <button mat-raised-button color="primary" type="submit"> Odoslať</button>
-      </div>
+
+<!--      Nefungoval tu timepicker takze som pouzil komponent od primeng -->
+      <!--            <mat-form-field appearance="outline">-->
+      <!--              <mat-label>Dátum prijatia</mat-label>-->
+      <!--              <div class="contentFlexJustifyBetween">-->
+      <!--                <input formControlName="deadline" matInput [matDatepicker]="picker1">-->
+      <!--                <mat-datepicker-toggle type="datetime-local" matIconSuffix [for]="picker1"></mat-datepicker-toggle>-->
+      <!--                <mat-datepicker #picker1></mat-datepicker>-->
+      <!--              </div>-->
+      <!--                <mat-error>Musí byť v budúcnosti</mat-error>-->
+      <!--            </mat-form-field>-->
+    </div>
+    <div class="contentFlexJustifyCenter" id="submitButton">
+      <button mat-raised-button color="primary" type="submit"> Odoslať</button>
     </div>
   </form>
+</div>

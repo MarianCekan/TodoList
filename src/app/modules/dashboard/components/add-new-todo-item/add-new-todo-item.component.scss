@@ -1,0 +1,12 @@
+@import "src/app/modules/dashboard/styles/commonStyles";
+
+.mat-error2 {
+  color: #f44336; /* This is the default error color in Angular Material */
+  font-size: 12px; /* You can adjust the font size to your liking */
+  margin-top: 4px; /* This will add some space between the input and the error message */
+  margin-left: 8%;
+}
+
+#submitButton{
+  margin-top: 20%;
+}

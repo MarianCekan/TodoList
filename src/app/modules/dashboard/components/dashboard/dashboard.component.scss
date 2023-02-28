@@ -1,3 +1,5 @@
+@import "src/app/modules/dashboard/styles/commonStyles";
+
 $inactive_text_color: gray;
 $even_row_color: rgba(245, 245, 245, 0.80);
 
@@ -15,12 +17,6 @@ table {
 
 .inactive {
   color: $inactive_text_color;
-}
-
-.contentFlexJustify {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .mat-row:nth-child(even) {
