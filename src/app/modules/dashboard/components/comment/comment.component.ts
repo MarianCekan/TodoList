@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {TodoItem} from "../../../../core/model/todo-item";
+import {TodoItem} from "../../../../core/models/todo-item";
 import {DataSourceService} from "../../services/data-source.service";
 
 @Component({
@@ -18,7 +18,6 @@ export class CommentComponent implements OnInit {
   }
 
   onDelete(todoItem: TodoItem) {
-    this.dataSource.deleteItem(todoItem);
   }
 
   onDone(todoItem: TodoItem) {

@@ -11,11 +11,6 @@ const routes: Routes = [
     path: 'dashboard',
     loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule)
   },
-  // {
-  //   path: '',
-  //   redirectTo: 'auth',
-  //   pathMatch: 'full'
-  // },
   {
     path: '**' , component: NotFoundPageComponent
   }

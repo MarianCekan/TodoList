@@ -3,8 +3,8 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {AuthService} from '../../../auth/services/auth.service';
-import {TodoItem} from '../../../../core/model/todo-item';
-import {TodoList} from '../../../../core/model/todo-list';
+import {TodoItem} from '../../../../core/models/todo-item';
+import {TodoList} from '../../../../core/models/todo-list';
 import {DataSourceService} from '../../services/data-source.service';
 import {MatDialog} from "@angular/material/dialog";
 import {AddNewTodoItemComponent} from "../add-new-todo-item/add-new-todo-item.component";
@@ -19,7 +19,6 @@ import {AddNewTodoListComponent} from "../add-new-todo-list/add-new-todo-list.co
 export class DashboardComponent implements OnInit {
   itemsList$!: Observable<TodoList[]>;
   displayedColumns;
-  attendance = 1619162740557;
 
 
   constructor(private authService: AuthService, private dataSource: DataSourceService, private fb: FormBuilder, private dialogRef: MatDialog,) {
@@ -47,12 +46,12 @@ export class DashboardComponent implements OnInit {
   }
 
   onSubmit(myForm: FormGroup) {
-    this.dataSource.addTodo(myForm.value);
+    this.dataSource.addTodoItem(myForm.value);
     myForm.reset();
   }
 
   changeState(todoItem: TodoItem) {
-    this.dataSource.updateTodo(todoItem)
+    this.dataSource.updateTodoItem(todoItem)
   }
 
   showActive(todoListId: string) {
@@ -79,9 +78,10 @@ export class DashboardComponent implements OnInit {
   }
 
   deleteItem(todoItem: TodoItem) {
-    this.dataSource.deleteTodo(todoItem);
+    this.dataSource.deleteTodoItem(todoItem);
   }
 
+  // function to filter data in order to save DB calls
   filterItems2(todoListId: string, search: string, active?: boolean) {
     this.itemsList$ = this.dataSource.getAllItemsLists().pipe(
       map(todoLists => {
